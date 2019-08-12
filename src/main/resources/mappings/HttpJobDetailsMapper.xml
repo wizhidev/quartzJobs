@@ -5,6 +5,7 @@
     <resultMap id="BaseResultMap" type="com.example.quartz.entity.HttpJobDetails">
         <id column="ID" jdbcType="INTEGER" property="id"/>
         <result column="JOB_NAME" jdbcType="VARCHAR" property="jobName"/>
+        <result column="TIMESTAMP" jdbcType="VARCHAR" property="timestamp"/>
         <result column="JOB_GROUP" jdbcType="VARCHAR" property="jobGroup"/>
         <result column="DESCRIPTION" jdbcType="VARCHAR" property="description"/>
         <result column="REQUEST_TYPE" jdbcType="VARCHAR" property="requestType"/>
@@ -15,14 +16,14 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-      ID,JOB_NAME,JOB_GROUP,DESCRIPTION,REQUEST_TYPE,HTTP_URL,HTTP_PARAMS,CREATE_TIME,UPDATE_TIME
+      ID,JOB_NAME,TIMESTAMP,JOB_GROUP,DESCRIPTION,REQUEST_TYPE,HTTP_URL,HTTP_PARAMS,CREATE_TIME,UPDATE_TIME
     </sql>
 
     <select id="selectByJobNameAndJobGroup" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
         from HTTPJOB_DETAILS
-        where JOB_NAME = #{jobName} and JOB_GROUP = #{jobGroup}
+        where JOB_NAME = #{jobName} and TIMESTAMP = #{timestamp}
     </select>
 
     <insert id="insertSelective" parameterType="com.example.quartz.entity.HttpJobDetails">
@@ -30,6 +31,9 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="jobName != null">
                 JOB_NAME,
+            </if>
+            <if test="timestamp != null">
+                TIMESTAMP ,
             </if>
             <if test="jobGroup != null">
                 JOB_GROUP,
@@ -46,10 +50,14 @@
             <if test="httpParams != null">
                 HTTP_PARAMS,
             </if>
+
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="jobName != null">
                 #{jobName,jdbcType=VARCHAR},
+            </if>
+            <if test="timestamp != null">
+                #{timestamp,jdbcType=VARCHAR},
             </if>
             <if test="jobGroup != null">
                 #{jobGroup,jdbcType=VARCHAR},

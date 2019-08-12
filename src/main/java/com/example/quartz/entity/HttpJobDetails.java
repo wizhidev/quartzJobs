@@ -23,6 +23,9 @@ public class HttpJobDetails implements Serializable {
 
     private String httpParams;
 
+    private String timestamp;
+
+
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
@@ -114,5 +117,13 @@ public class HttpJobDetails implements Serializable {
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 '}';
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 }

@@ -24,6 +24,8 @@ public class AddHttpJobParam {
     @NotEmpty(message = "cron表达式不能为空")
     private String cronExpression;
 
+    private String timeshamp;
+
     public String getJobName() {
         return jobName;
     }
@@ -90,5 +92,13 @@ public class AddHttpJobParam {
                 ", params='" + params + '\'' +
                 ", cronExpression='" + cronExpression + '\'' +
                 '}';
+    }
+
+    public String getTimeshamp() {
+        return timeshamp;
+    }
+
+    public void setTimeshamp(String timeshamp) {
+        this.timeshamp = timeshamp;
     }
 }

@@ -4,9 +4,12 @@ import com.example.quartz.constants.Constant;
 import com.example.quartz.entity.HttpJobLogs;
 import com.example.quartz.mapper.HttpJobLogsMapper;
 import com.example.quartz.util.HttpClientUtil;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.quartz.*;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.quartz.DisallowConcurrentExecution;
+import org.quartz.Job;
+import org.quartz.JobDetail;
+import org.quartz.JobExecutionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Map;
@@ -41,7 +44,7 @@ public class HttpPostJsonJob implements Job {
         String result = HttpClientUtil.postJson(url, jsonParam);
         httpJobLogs.setResult(result);
 
-        logger.info("Success in execute [{}_{}]", jobName, jobGroup);
+//        logger.info("Success in execute [{}_{}]", jobName, jobGroup);
 
         httpJobLogsMapper.insertSelective(httpJobLogs);
     }
