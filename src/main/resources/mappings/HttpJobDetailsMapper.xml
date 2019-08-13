@@ -5,7 +5,6 @@
     <resultMap id="BaseResultMap" type="com.example.quartz.entity.HttpJobDetails">
         <id column="ID" jdbcType="INTEGER" property="id"/>
         <result column="JOB_NAME" jdbcType="VARCHAR" property="jobName"/>
-        <result column="TIMESTAMP" jdbcType="VARCHAR" property="timestamp"/>
         <result column="JOB_GROUP" jdbcType="VARCHAR" property="jobGroup"/>
         <result column="DESCRIPTION" jdbcType="VARCHAR" property="description"/>
         <result column="REQUEST_TYPE" jdbcType="VARCHAR" property="requestType"/>
@@ -16,14 +15,14 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-      ID,JOB_NAME,TIMESTAMP,JOB_GROUP,DESCRIPTION,REQUEST_TYPE,HTTP_URL,HTTP_PARAMS,CREATE_TIME,UPDATE_TIME
+      ID,JOB_NAME,JOB_GROUP,DESCRIPTION,REQUEST_TYPE,HTTP_URL,HTTP_PARAMS,CREATE_TIME,UPDATE_TIME
     </sql>
 
     <select id="selectByJobNameAndJobGroup" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
         from HTTPJOB_DETAILS
-        where JOB_NAME = #{jobName} and TIMESTAMP = #{timestamp}
+        where JOB_NAME = #{jobName} and JOB_GROUP = #{jobGroup}
     </select>
 
     <insert id="insertSelective" parameterType="com.example.quartz.entity.HttpJobDetails">
@@ -31,9 +30,6 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="jobName != null">
                 JOB_NAME,
-            </if>
-            <if test="timestamp != null">
-                TIMESTAMP ,
             </if>
             <if test="jobGroup != null">
                 JOB_GROUP,
@@ -55,9 +51,6 @@
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="jobName != null">
                 #{jobName,jdbcType=VARCHAR},
-            </if>
-            <if test="timestamp != null">
-                #{timestamp,jdbcType=VARCHAR},
             </if>
             <if test="jobGroup != null">
                 #{jobGroup,jdbcType=VARCHAR},
@@ -104,8 +97,8 @@
         LEFT JOIN HTTPJOB_DETAILS hd ON ( t.JOB_NAME = hd.JOB_NAME AND t.JOB_GROUP = hd.JOB_GROUP )
         WHERE
         1=1
-        <if test="searchParam != null and searchParam != ''">
-            AND ( t.JOB_NAME LIKE concat('%',#{searchParam},'%') OR t.JOB_GROUP LIKE concat('%',#{searchParam},'%') )
+        <if test="searchParam != null">
+            AND ( t.JOB_NAME LIKE concat('%',#{searchParam},'%'))
         </if>
         ORDER BY hd.ID DESC
         <if test="beginIndex != null and pageSize!=null">
@@ -122,8 +115,8 @@
         LEFT JOIN HTTPJOB_DETAILS hd ON ( t.JOB_NAME = hd.JOB_NAME AND t.JOB_GROUP = hd.JOB_GROUP )
         WHERE
         1=1
-        <if test="searchParam != null and searchParam != ''">
-            AND ( t.JOB_NAME LIKE concat('%',#{searchParam},'%') OR t.JOB_GROUP LIKE concat('%',#{searchParam},'%') )
+        <if test="searchParam != null">
+            AND ( t.JOB_NAME LIKE concat('%',#{searchParam},'%'))
         </if>
     </select>
 

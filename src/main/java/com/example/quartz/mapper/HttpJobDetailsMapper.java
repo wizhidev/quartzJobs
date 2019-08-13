@@ -11,7 +11,7 @@ import java.util.Map;
 @Repository
 public interface HttpJobDetailsMapper {
 
-    HttpJobDetails selectByJobNameAndJobGroup(@Param("jobName") String jobName, @Param("timestamp") String timestamp);
+    HttpJobDetails selectByJobNameAndJobGroup(@Param("jobName") String jobName, @Param("jobGroup") String jobGroup);
 
     int insertSelective(HttpJobDetails httpJobDetails);
 

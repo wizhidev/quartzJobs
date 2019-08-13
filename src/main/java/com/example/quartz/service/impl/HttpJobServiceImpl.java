@@ -56,15 +56,9 @@ public class HttpJobServiceImpl implements HttpJobService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void addHttpJob(AddHttpJobParam addHttpJobParam) {
-        Date ss = new Date();
-        SimpleDateFormat format0 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        System.out.println("一般日期输出：" + ss);
-        System.out.println("时间戳：" + ss.getTime());
-
         String jobName = addHttpJobParam.getJobName();
         String jobGroup = addHttpJobParam.getJobGroup();
-        String timestamp = format0.format(ss.getTime());
-        HttpJobDetails httpJobDetails = httpJobDetailsMapper.selectByJobNameAndJobGroup(jobName, timestamp);
+        HttpJobDetails httpJobDetails = httpJobDetailsMapper.selectByJobNameAndJobGroup(jobName, jobGroup);
         if (httpJobDetails != null) {
             //通过jobName和jobGroup确保任务的唯一性
             throw new RuntimeException("任务名称重复!");
@@ -78,7 +72,6 @@ public class HttpJobServiceImpl implements HttpJobService {
 
         httpJobDetails = new HttpJobDetails();
         httpJobDetails.setJobName(jobName);
-        httpJobDetails.setTimestamp(timestamp);
         httpJobDetails.setJobGroup(jobGroup);
         httpJobDetails.setDescription(description);
         httpJobDetails.setRequestType(requestType);
@@ -140,6 +133,8 @@ public class HttpJobServiceImpl implements HttpJobService {
                 }
                 jobParamsMap.put(Constant.PARAMS, paramMap);
 
+                break;
+            default:
                 break;
         }
 
