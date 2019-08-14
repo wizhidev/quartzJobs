@@ -7,8 +7,6 @@ import com.example.quartz.entity.param.AddHttpJobParam;
 import com.example.quartz.entity.vo.HttpJobDetailVO;
 import com.example.quartz.service.HttpJobService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -33,6 +31,7 @@ public class HttpJobController {
         return Response.success();
     }
 
+    @CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
     @RequestMapping(value = "/jobs")
     public Response<Page<HttpJobDetailVO>> getJobs(@RequestParam(name = "searchParam", required = false) String searchParam,
                                                    @RequestParam(name = "pageSize", required = false, defaultValue = "15") Integer pageSize,

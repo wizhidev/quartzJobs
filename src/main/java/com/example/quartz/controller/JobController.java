@@ -3,10 +3,7 @@ package com.example.quartz.controller;
 import com.example.quartz.config.response.Response;
 import com.example.quartz.service.JobManageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * job操作Controller
@@ -21,6 +18,7 @@ public class JobController {
     @Autowired
     private JobManageService jobManageService;
 
+    @CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
     @RequestMapping(value = "/pause", method = RequestMethod.POST)
     public Response pauseJob(@RequestParam(name = "jobName") String jobName,
                              @RequestParam(name = "jobGroup") String jobGroup) {
@@ -29,6 +27,7 @@ public class JobController {
         return Response.success();
     }
 
+    @CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
     @RequestMapping(value = "/resume", method = RequestMethod.POST)
     public Response resumeJob(@RequestParam(name = "jobName") String jobName,
                               @RequestParam(name = "jobGroup") String jobGroup) {
@@ -37,6 +36,7 @@ public class JobController {
         return Response.success();
     }
 
+    @CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public Response deleteJob(@RequestParam(name = "jobName") String jobName,
                               @RequestParam(name = "jobGroup") String jobGroup) {
