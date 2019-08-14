@@ -5,8 +5,8 @@
     <title>定时任务管理</title>
     <script src="js/vue.min.js"></script>
     <script src="js/axios.min.js"></script>
-    <script src="js/index.js"></script>
-    <link rel="stylesheet" href="js/index.css">
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 
     <style>
         #top {
@@ -34,10 +34,10 @@
 <body>
 <div id="httpJob">
     <div id="top">
-        <el-button type="primary" size="small" round @click="addJob(true)">添加任务</el-button>
+        <!--<el-button type="primary" size="small" round @click="addJob(true)">添加任务</el-button>-->
         <el-input type="search" v-model="search" placeholder="任务名称"
                   style="width: auto; margin-left:20px"></el-input>
-        <el-button type="text" size="large" @click="searchJob" style="margin-right:20px">查询</el-button>
+        <el-button type="text" style="width: auto; margin-left:20px" size="large" @click="searchJob" style="margin-right:20px">查询</el-button>
         <el-button type="text" size="large" @click="flushJob" style="margin-right:20px">刷新</el-button>
     </div>
 
@@ -253,7 +253,7 @@
                 }).then((res) => {
                     if (res.data.status == 0) {
                         this.$message({
-                            // type: 'success',
+                            type: 'success',
                             message: "设置成功"
                         });
                         this.loadData(this.pageNum, this.pageSize, this.search);
@@ -281,7 +281,7 @@
                 }).then((res) => {
                     if (res.data.status == 0) {
                         this.$message({
-                            // type: 'success',
+                            type: 'success',
                             message: "设置成功"
                         });
                         this.loadData(this.pageNum, this.pageSize, this.search);
@@ -315,14 +315,14 @@
                         if (res.data.status == 0) {
                             this.$message({
                                 type: 'success',
-                                message: res.data.message
+                                message: "设置成功"
                             });
                             this.loadData(this.pageNum, this.pageSize, this.search);
                             this.addFormVisible = false;
                         } else {
                             this.$message({
                                 type: 'warning',
-                                message: res.data.message
+                                message: "设置失败"
                             })
                         }
                     }).catch((error) => {

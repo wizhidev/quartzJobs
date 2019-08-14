@@ -3,10 +3,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.example</groupId>
+    <groupId>com.wizhi.quartz</groupId>
     <artifactId>quartz</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>quartz</name>
+    <version>1.0</version>
+    <packaging>jar</packaging>
     <description>Quartz for Spring Boot</description>
 
     <parent>
@@ -116,6 +116,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
+        <defaultGoal>compile</defaultGoal>
     </build>
 
 </project>
