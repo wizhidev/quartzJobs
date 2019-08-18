@@ -98,7 +98,7 @@
         WHERE
         1=1
         <if test="searchParam != null">
-            AND ( t.JOB_NAME LIKE concat('%',#{searchParam},'%'))
+            AND ( t.JOB_NAME LIKE concat('%',#{searchParam},'%') OR t.JOB_GROUP LIKE concat('%',#{searchParam},'%') )
         </if>
         ORDER BY hd.ID DESC
         <if test="beginIndex != null and pageSize!=null">
@@ -116,7 +116,7 @@
         WHERE
         1=1
         <if test="searchParam != null">
-            AND ( t.JOB_NAME LIKE concat('%',#{searchParam},'%'))
+            AND ( t.JOB_NAME LIKE concat('%',#{searchParam},'%') OR t.JOB_GROUP LIKE concat('%',#{searchParam},'%') )
         </if>
     </select>
 
